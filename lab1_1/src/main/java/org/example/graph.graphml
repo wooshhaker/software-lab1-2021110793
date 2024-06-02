@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <key id="edge_weight_key" for="edge" attr.name="weight" attr.type="double">
+        <default>1.0</default>
+    </key>
+    <graph edgedefault="directed">
+        <node id="banana"/>
+        <node id="cherry"/>
+        <node id="monkey"/>
+        <node id="fig"/>
+        <node id="today"/>
+        <node id="lab"/>
+        <node id="apple"/>
+        <edge source="banana" target="cherry">
+            <data key="edge_weight_key">3.0</data>
+        </edge>
+        <edge source="banana" target="monkey"/>
+        <edge source="banana" target="fig">
+            <data key="edge_weight_key">5.0</data>
+        </edge>
+        <edge source="banana" target="today"/>
+        <edge source="banana" target="lab"/>
+        <edge source="apple" target="banana"/>
+        <edge source="apple" target="cherry">
+            <data key="edge_weight_key">3.0</data>
+        </edge>
+        <edge source="apple" target="monkey"/>
+        <edge source="apple" target="lab"/>
+        <edge source="cherry" target="banana">
+            <data key="edge_weight_key">6.0</data>
+        </edge>
+        <edge source="cherry" target="apple"/>
+        <edge source="cherry" target="fig">
+            <data key="edge_weight_key">2.0</data>
+        </edge>
+        <edge source="cherry" target="today"/>
+        <edge source="cherry" target="lab"/>
+        <edge source="monkey" target="apple"/>
+        <edge source="monkey" target="fig"/>
+        <edge source="monkey" target="today"/>
+        <edge source="fig" target="banana"/>
+        <edge source="fig" target="cherry">
+            <data key="edge_weight_key">4.0</data>
+        </edge>
+        <edge source="fig" target="apple">
+            <data key="edge_weight_key">3.0</data>
+        </edge>
+        <edge source="fig" target="lab">
+            <data key="edge_weight_key">2.0</data>
+        </edge>
+        <edge source="today" target="banana"/>
+        <edge source="today" target="monkey"/>
+        <edge source="today" target="fig">
+            <data key="edge_weight_key">2.0</data>
+        </edge>
+        <edge source="lab" target="banana"/>
+        <edge source="lab" target="cherry"/>
+        <edge source="lab" target="apple"/>
+        <edge source="lab" target="today"/>
+    </graph>
+</graphml>
