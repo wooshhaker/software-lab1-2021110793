@@ -7,10 +7,8 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.nio.Attribute;
 import org.jgrapht.nio.DefaultAttribute;
 import org.jgrapht.nio.graphml.GraphMLExporter;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.*;
 
 public class allinone {
@@ -34,7 +32,12 @@ public class allinone {
 
             switch (choice) {
                 case 1:
+                    try{
                     readAndWriteGraph();
+                    }
+                catch(IOException e){
+                    e.printStackTrace();
+                }
                     break;
                 case 2:
                     showDirectedGraph();
@@ -71,13 +74,12 @@ public class allinone {
     }
 
     //更新有向图
-    private static void readAndWriteGraph() {
+    public static void readAndWriteGraph() throws IOException {
         //在更新有向图时作为参数
         String input = "src/main/java/org/example/input.txt";
         String output = "src/main/java/org/example/output.txt";
         try {
             Map<String, Map<String, Integer>> graph = new HashMap<>();
-
             // 读取文本文件并统计相邻单词出现次数
             BufferedReader reader = new BufferedReader(new FileReader(input));
             String prevWord = null;
@@ -94,6 +96,7 @@ public class allinone {
                 }
             }
             reader.close();
+
             // 生成有向图并存储到目标文件
             FileWriter writer = new FileWriter(output);
             for (Map.Entry<String, Map<String, Integer>> entry : graph.entrySet()) {
@@ -106,6 +109,8 @@ public class allinone {
             }
             writer.close();
             System.out.println("有向图信息已保存至 " + output);
+        } catch (FileNotFoundException e) {
+            throw new IOException("输入文件未找到: " + input, e);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -140,18 +145,17 @@ public class allinone {
         }
     }
     //查询桥接词
-    private static String queryBridgeWords(String word1, String word2) {
+    public static String queryBridgeWords(String word1, String word2) {
         Map<String, Map<String, Double>> graph = readfromFile("src/main/java/org/example/output.txt");
         // 检查单词是否在有向图中
         if (!graph.containsKey(word1)) {
-            System.err.println("错误：单词 " + word1 + " 不存在于有向图中。");
+            //System.err.println("错误：单词 " + word1 + " 不存在于有向图中。");
             return "无桥接词";
         }
         if (!graph.containsKey(word2)) {
-            System.err.println("错误：单词 " + word2 + " 不存在于有向图中。");
+            //System.err.println("错误：单词 " + word2 + " 不存在于有向图中。");
             return "无桥接词";
         }
-
         // 获取 word1 和 word2 的邻居节点
         List<String> neighbors1 = new ArrayList<>(graph.get(word1).keySet());
         List<String> neighbors2 = new ArrayList<>();
@@ -160,18 +164,16 @@ public class allinone {
                 neighbors2.add(node);
             }
         }
-
         List<String> bridgeWords = new ArrayList<>();
-
         // 查找共同的邻居节点作为桥接词
         for (String neighbor : neighbors1) {
             if (neighbors2.contains(neighbor)) {
                 bridgeWords.add(neighbor);
             }
         }
-
         return bridgeWords.isEmpty() ? "无桥接词" : "桥接词：" + String.join(", ", bridgeWords);
     }
+
     //生成新文本
     private static String generateNewText(String inputText) {
         String[] words = inputText.split("[^a-zA-Z]+");
